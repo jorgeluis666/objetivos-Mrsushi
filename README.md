@@ -5,7 +5,7 @@ publicitaria factura en dolares: todos los montos del tablero van en US$ (`CURRE
 la cuenta son los mensajes: las conversaciones iniciadas se miden en toda la cuenta, aparte de los resultados de
 cada objetivo.
 
-Version actual: `v1.0.0`.
+Version actual: `v1.1.0`.
 
 ## Versionado
 
@@ -32,6 +32,7 @@ La version vive en tres lugares: `package.json`, la etiqueta del panel lateral (
 - Calculadora de Inversion: facturacion objetivo, ventas necesarias e inversion en mensajes por CPL.
 - Historico de Campanas: todas las campanas de las descargas de Meta, activas y finalizadas, con su gasto mes a mes.
 - Archivo de Reportes: catalogo de la carpeta de reportes en Google Drive y validacion contra Gasto publicitario.
+- Generacion de Reporte: el reporte semanal de lunes a domingo, con el orden del ultimo reporte de la carpeta de Drive y descarga en PDF (ver "Generacion de Reporte").
 - Bitacora: checklist mensual de cambios, comentarios y decisiones de la cuenta.
 - Usuarios y Claves: directorio de quien tiene acceso al tablero, sin contrasenas.
 
@@ -65,6 +66,29 @@ Mr. Sushi".
   conversaciones. Sin campana de mensajes en el periodo queda en "-".
 - El alcance es la suma de las filas de la descarga, igual que en los reportes de la agencia (no el alcance sin
   duplicar de Meta).
+
+## Generacion de Reporte
+
+Pestana que arma el reporte de la semana que acaba de pasar, de lunes a domingo, con el mismo orden del
+ultimo reporte publicado en la carpeta Reportes de Drive: resumen del periodo, conversaciones por dia,
+mejores anuncios, conjuntos y campanas, y conclusiones.
+
+- **De donde salen los numeros:** de las mismas filas del barrido de Meta que usa Gasto publicitario (una
+  fila por dia, campana, conjunto y anuncio). No hay una fuente nueva ni una lectura extra.
+- **Que semana muestra:** la ultima de lunes a domingo ya cerrada (en hora de Lima). El selector deja ver
+  las 12 anteriores. La semana en curso no se lista: el reporte es de semana completa.
+- **Cada lunes se puebla solo:** el tablero relee el barrido al abrirse y con Actualizar, y el workflow de Pages vuelve a publicar todos los dias despues del barrido.
+- **Si la descarga del mes no llega al domingo**, el reporte lo avisa arriba y nombra los dias que faltan:
+  los totales pueden subir cuando se suba la descarga nueva.
+- **Resultados:** cada objetivo mide el suyo (ThruPlay, interacciones, contactos...), asi que no se suman
+  entre si. Con columna de conversaciones, ese es el numero que encabeza; si no, encabeza el tipo con mas inversion y los demas van en el desglose.
+- **Conclusiones:** las dos primeras vienen propuestas con lo que dice la semana y se editan en la pestana;
+  quedan guardadas por semana en el navegador (`mrsushi-week-notes-v1`), no se publican con el tablero.
+- **Descargar PDF** abre el dialogo de impresion con el reporte solo (sin panel lateral ni barra superior)
+  y el nombre del archivo ya armado.
+
+El modulo es `js/report-week.js` y es el mismo archivo en todos los tableros de marca: lo unico que cambia
+es el bloque `CONFIG` de arriba. Sus estilos y los de impresion estan al final de `css/dashboard.css`.
 
 ## Calculadora de Inversion
 
