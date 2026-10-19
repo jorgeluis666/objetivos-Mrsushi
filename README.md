@@ -32,7 +32,7 @@ La version vive en tres lugares: `package.json`, la etiqueta del panel lateral (
 - Calculadora de Inversion: facturacion objetivo, ventas necesarias e inversion en mensajes por CPL.
 - Historico de Campanas: todas las campanas de las descargas de Meta, activas y finalizadas, con su gasto mes a mes.
 - Archivo de Reportes: catalogo de la carpeta de reportes en Google Drive y validacion contra Gasto publicitario.
-- Generacion de Reporte: el reporte semanal de lunes a domingo, con el orden del ultimo reporte de la carpeta de Drive y descarga en PDF (ver "Generacion de Reporte").
+  - Pestana Generacion de Reporte, dentro de Archivo de Reportes: el reporte semanal de lunes a domingo, con el orden del ultimo reporte de la carpeta de Drive y descarga en PDF (ver "Generacion de Reporte").
 - Bitacora: checklist mensual de cambios, comentarios y decisiones de la cuenta.
 
 El pie del panel lateral lleva el nombre de la cuenta, el WhatsApp de Agencia Lima Retail
