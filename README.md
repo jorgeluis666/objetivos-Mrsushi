@@ -5,7 +5,7 @@ publicitaria factura en dolares: todos los montos del tablero van en US$ (`CURRE
 la cuenta son los mensajes: las conversaciones iniciadas se miden en toda la cuenta, aparte de los resultados de
 cada objetivo.
 
-Version actual: `v1.1.0`.
+Version actual: `v1.2.0`.
 
 ## Versionado
 
@@ -34,7 +34,10 @@ La version vive en tres lugares: `package.json`, la etiqueta del panel lateral (
 - Archivo de Reportes: catalogo de la carpeta de reportes en Google Drive y validacion contra Gasto publicitario.
 - Generacion de Reporte: el reporte semanal de lunes a domingo, con el orden del ultimo reporte de la carpeta de Drive y descarga en PDF (ver "Generacion de Reporte").
 - Bitacora: checklist mensual de cambios, comentarios y decisiones de la cuenta.
-- Usuarios y Claves: directorio de quien tiene acceso al tablero, sin contrasenas.
+
+El pie del panel lateral lleva el nombre de la cuenta, el WhatsApp de Agencia Lima Retail
+(+51 937 409 733) y www.limaretail.com. El modulo "Usuarios y Claves" salio del tablero; el
+directorio guardado sigue en el repositorio por si hace falta recuperarlo.
 
 ## Datos
 
@@ -98,14 +101,6 @@ es el bloque `CONFIG` de arriba. Sus estilos y los de impresion estan al final d
   si ese mes no tuvo campana de Mensajes.
 - Los valores se guardan en `localStorage` (`mrsushi_messages_calculator_v1`) de ese navegador.
 
-## Bitacora y Usuarios y Claves
-
-Las versiones publicadas son `data/mrsushi-bitacora.json` y `data/mrsushi-usuarios.json` (el build las incrusta
-como `window.MRSUSHI_BITACORA` y `window.MRSUSHI_USUARIOS`). Se editan en el tablero como borrador
-(`localStorage`), **Exportar** descarga el JSON, se reemplaza en `data/`, commit y push a `main`.
-
-Ojo: mientras el repo sea publico, lo que se publique en estos dos archivos tambien lo es. El tablero se abre con
-una sola clave para todos (secret `DASHBOARD_PASSWORD`); aqui nunca se guarda ninguna clave.
 
 ## Configuracion del Web App (Google Apps Script)
 
