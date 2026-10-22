@@ -5,7 +5,7 @@ publicitaria factura en dolares: todos los montos del tablero van en US$ (`CURRE
 la cuenta son los mensajes: las conversaciones iniciadas se miden en toda la cuenta, aparte de los resultados de
 cada objetivo.
 
-Version actual: `v1.4.1`.
+Version actual: `v1.5.0`.
 
 ## Versionado
 
@@ -61,9 +61,15 @@ Mr. Sushi".
 - El Web App de `scripts/google-sheets-sync.gs` lee la carpeta de descargas y la de reportes, suma edad y sexo y
   guarda el barrido en un JSON de Drive. `js/data-source.js` (`window.MrSushiData`) lo pide al abrir el tablero,
   cada hora y al volver a la pestana, y lo reparte a todos los modulos con el evento `mrsushi:data-updated`.
-- Barrido automatico: todos los dias entre 10:00 y 11:00 (hora de Lima), aunque nadie abra el tablero. El estado
-  de la actualizacion esta en la esquina superior derecha: la pildora abre el detalle y el boton **Actualizar**
-  hace un barrido en el momento.
+- Barrido automatico: todos los dias entre 10:00 y 11:00 (hora de Lima), aunque nadie abra el tablero. El boton
+  **Actualizar** hace un barrido en el momento.
+- Barra superior (como Royal Baby): queda fija al hacer scroll y su bajada repite la descripcion del modulo en el
+  panel lateral. A la derecha, la pildora de sincronizacion dice "Sincronizado · hace 2 h" en verde; en ambar dice
+  "Copia guardada · hace N h", "Aun no sincronizado" o lleva mas de un dia y medio sin barrido;
+  en rojo, "Sin conexion con Google"; y en ambar con el punto latiendo, "Recargando…" mientras corre Actualizar. Su
+  title trae la linea completa (datos al dia N, origen y hora del barrido) y al pulsarla abre el detalle (datos
+  cargados, ultimo barrido, proximo automatico, archivo del mes y fuente). Al lado esta el boton fantasma
+  **Actualizar**, con icono de recarga que gira mientras dura el barrido.
 - El repo es publico, asi que ni la URL del Web App, ni los IDs de las carpetas, ni los datos del cliente se
   guardan en el: `npm run build` toma la URL del secret `DATA_ENDPOINT`, baja el ultimo barrido y lo incrusta en
   `dist/index.html` (que solo se sirve cifrado). La copia queda tambien en `data/mrsushi-meta.json`, que esta en
