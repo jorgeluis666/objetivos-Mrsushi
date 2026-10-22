@@ -5,7 +5,7 @@ publicitaria factura en dolares: todos los montos del tablero van en US$ (`CURRE
 la cuenta son los mensajes: las conversaciones iniciadas se miden en toda la cuenta, aparte de los resultados de
 cada objetivo.
 
-Version actual: `v1.2.0`.
+Version actual: `v1.4.0`.
 
 ## Versionado
 
@@ -26,6 +26,13 @@ La version vive en tres lugares: `package.json`, la etiqueta del panel lateral (
     promedio mensual de los meses cerrados.
   - Distribucion de la inversion por campana y un cuadro por objetivo (Mensajes, Reconocimiento, Trafico al
     perfil) con sus KPIs, su grafico, sus conjuntos de anuncios y sus anuncios.
+  - Grafico de cada cuadro: `Por dia` o `Por mes` (sin acumulado del mes: siempre sube y exagera el crecimiento)
+    e indicadores resultado, inversion, impresiones, alcance y costo por resultado (inversion / resultados de cada
+    dia o mes; un dia sin resultados queda como hueco). Cada punto lleva su valor (si dos etiquetas chocan, una baja
+    bajo el punto o queda solo en el tooltip). Varios indicadores van en paneles apilados, cada uno con su escala, o
+    con el boton `Un solo cuadro` todos juntos, un color por indicador y cada uno con su escala (sin eje: el valor
+    va en el punto); uno solo va contra el mes anterior en el mismo dia. Indicadores, vista y un solo cuadro se
+    recuerdan por objetivo.
 - Anuncios: Top 3 de anuncios por conversaciones iniciadas (a igual cantidad, menor costo por conversacion) y la
   tabla de todos los anuncios del periodo con filtro por objetivo, densidad compacta y pantalla completa.
 - Proyecciones: cierre de mes estimado por objetivo (resultados y gasto).
