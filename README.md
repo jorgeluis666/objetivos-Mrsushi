@@ -5,7 +5,7 @@ publicitaria factura en dolares: todos los montos del tablero van en US$ (`CURRE
 la cuenta son los mensajes: las conversaciones iniciadas se miden en toda la cuenta, aparte de los resultados de
 cada objetivo.
 
-Version actual: `v1.4.0`.
+Version actual: `v1.4.1`.
 
 ## Versionado
 

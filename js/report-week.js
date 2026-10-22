@@ -25,9 +25,9 @@
   const SUM_FIELDS = ['spend', 'impressions', 'reach', 'clicks', 'results', 'conversations', 'messages', 'interactions', 'purchases'];
   // Titulos de las conclusiones del ultimo reporte de la carpeta: el equipo reescribe el texto, no el orden.
   const NOTE_FIELDS = [
-    { key: 'logro', label: 'Lo que funciono' },
+    { key: 'logro', label: 'Lo que funcionó' },
     { key: 'alerta', label: 'Lo que hay que corregir' },
-    { key: 'siguiente', label: 'Proximos pasos' },
+    { key: 'siguiente', label: 'Próximos pasos' },
   ];
 
   let chart = null;
@@ -212,15 +212,15 @@
     const quiet = report.series.filter(day => day.hasData && day.conversions === 0).length;
 
     const logro = [
-      best ? `«${best.name}» fue el anuncio con mas ${report.measuresConversions ? 'conversaciones' : 'resultados'} (${fmt.count(best.conversions)} con ${fmt.money(best.spend)})` : '',
-      cheapest && cheapest !== best ? `el costo mas bajo lo dio «${cheapest.name}» (${fmt.unitCost(cheapest.costPerConversion)} por ${report.measuresConversions ? 'conversacion' : 'resultado'})` : '',
-      audience ? `el publico mas eficiente fue ${audience.name} (${fmt.unitCost(audience.costPerConversion)})` : '',
+      best ? `«${best.name}» fue el anuncio con más ${report.measuresConversions ? 'conversaciones' : 'resultados'} (${fmt.count(best.conversions)} con ${fmt.money(best.spend)})` : '',
+      cheapest && cheapest !== best ? `el costo más bajo lo dio «${cheapest.name}» (${fmt.unitCost(cheapest.costPerConversion)} por ${report.measuresConversions ? 'conversación' : 'resultado'})` : '',
+      audience ? `el público más eficiente fue ${audience.name} (${fmt.unitCost(audience.costPerConversion)})` : '',
     ].filter(Boolean).join('; ');
 
     const alerta = [
       variation != null ? `${report.measuresConversions ? 'Las conversaciones' : 'Los resultados'} ${variation >= 0 ? 'subieron' : 'bajaron'} ${fmt.pct(Math.abs(variation))} contra la semana anterior` : 'No hay semana anterior con datos para comparar',
-      quiet ? `${quiet} ${quiet === 1 ? 'dia' : 'dias'} de la semana sin ${report.measuresConversions ? 'conversaciones' : 'resultados'}` : '',
-      report.missingDays.length ? `faltan los dias ${report.missingDays.map(dayLabel).join(', ')} en la descarga de Meta` : '',
+      quiet ? `${quiet} ${quiet === 1 ? 'día' : 'días'} de la semana sin ${report.measuresConversions ? 'conversaciones' : 'resultados'}` : '',
+      report.missingDays.length ? `faltan los días ${report.missingDays.map(dayLabel).join(', ')} en la descarga de Meta` : '',
     ].filter(Boolean).join('; ');
 
     return { logro: logro ? `${logro}.` : '', alerta: alerta ? `${alerta}.` : '', siguiente: '' };
@@ -269,7 +269,7 @@
     // change() no compara contra cero: se dice cual era el numero en vez de callarlo.
     if (variation == null) return before == null ? 'Sin semana anterior' : `vs ${unit === 'count' ? fmt.count(before) : fmt.money(before)} la semana anterior`;
     const previous = unit === 'money' ? fmt.money(before) : unit === 'cost' ? fmt.unitCost(before) : fmt.count(before);
-    return `${variation >= 0 ? '+' : '-'}${fmt.pct(Math.abs(variation))} vs ${previous}`;
+    return `${variation >= 0 ? '+' : '−'}${fmt.pct(Math.abs(variation))} vs ${previous}`;
   }
 
   function tableHtml(groups, { nameHead, withPreview, highlight, typeColumn, label }) {
@@ -291,7 +291,7 @@
     return `
       <div class="table-scroll">
         <table class="data-table">
-          <thead><tr><th>${esc(nameHead)}</th>${typeColumn ? '<th>Resultado</th>' : ''}<th class="num">Inversion</th><th class="num">${esc(label)}</th><th class="num">Costo x resultado</th><th class="num">CPM</th><th class="num">Alcance</th><th class="num">Frec.</th>${withPreview ? '<th>Vista previa</th>' : ''}</tr></thead>
+          <thead><tr><th>${esc(nameHead)}</th>${typeColumn ? '<th>Resultado</th>' : ''}<th class="num">Inversión</th><th class="num">${esc(label)}</th><th class="num">Costo x resultado</th><th class="num">CPM</th><th class="num">Alcance</th><th class="num">Frec.</th>${withPreview ? '<th>Vista previa</th>' : ''}</tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>`;
@@ -306,7 +306,7 @@
       return `
         <label class="week-note" for="week-note-${field.key}">
           <span class="week-note-head"><b>0${index + 1}</b> ${esc(field.label)}</span>
-          <textarea id="week-note-${field.key}" data-week-note="${field.key}" rows="3" placeholder="Escribe la conclusion que va en el reporte">${esc(value)}</textarea>
+          <textarea id="week-note-${field.key}" data-week-note="${field.key}" rows="3" placeholder="Escribe la conclusión que va en el reporte">${esc(value)}</textarea>
         </label>`;
     }).join('');
   }
@@ -323,7 +323,7 @@
         labels: report.series.map(day => day.label),
         datasets: [
           { type: 'bar', label: report.week.conversionLabel, data: report.series.map(day => day.conversions), backgroundColor: brandColor, borderRadius: 4, yAxisID: 'y' },
-          { type: 'line', label: 'Inversion', data: report.series.map(day => day.spend), borderColor: '#2563eb', backgroundColor: '#2563eb', borderWidth: 2, tension: .3, pointRadius: 3, yAxisID: 'y1' },
+          { type: 'line', label: 'Inversión', data: report.series.map(day => day.spend), borderColor: '#2563eb', backgroundColor: '#2563eb', borderWidth: 2, tension: .3, pointRadius: 3, yAxisID: 'y1' },
         ],
       },
       options: {
@@ -336,9 +336,9 @@
           tooltip: { callbacks: { label: context => ` ${context.dataset.label}: ${context.dataset.yAxisID === 'y1' ? fmt.money(context.raw) : fmt.count(context.raw)}` } },
         },
         scales: {
-          x: { grid: { display: false }, border: { color: '#cbd5e1' }, ticks: { color: '#7890b5', font: { size: 10 } } },
-          y: { beginAtZero: true, grid: { color: '#eef2f7' }, border: { display: false }, ticks: { color: '#7890b5', font: { size: 10 }, precision: 0 } },
-          y1: { beginAtZero: true, position: 'right', grid: { display: false }, border: { display: false }, ticks: { color: '#7890b5', font: { size: 10 }, callback: value => `${api().CURRENCY || 'S/'} ${value}` } },
+          x: { grid: { display: false }, border: { color: '#cbd5e1' }, ticks: { color: '#94A3B8', font: { size: 10 } } },
+          y: { beginAtZero: true, grid: { color: 'rgba(15,23,42,.06)' }, border: { display: false }, ticks: { color: '#94A3B8', font: { size: 10 }, precision: 0 } },
+          y1: { beginAtZero: true, position: 'right', grid: { display: false }, border: { display: false }, ticks: { color: '#94A3B8', font: { size: 10 }, callback: value => `${api().CURRENCY || 'S/.'} ${Number(value).toLocaleString('es-PE')}` } },
         },
       },
     });
@@ -353,7 +353,7 @@
     const select = document.getElementById('week-select');
     if (!available.length) {
       if (select) select.innerHTML = '<option value="">Sin semanas cerradas</option>';
-      host.innerHTML = '<div class="panel"><div class="empty-state"><strong>Todavia no hay una semana cerrada con datos</strong><span>El reporte se arma con las descargas de Meta Ads de la carpeta de Drive. En cuanto haya una semana de lunes a domingo con entregas, aparece aqui.</span></div></div>';
+      host.innerHTML = '<div class="panel"><div class="empty-state"><strong>Todavía no hay una semana cerrada con datos</strong><span>El reporte se arma con las descargas de Meta Ads de la carpeta de Drive. En cuanto haya una semana de lunes a domingo con entregas, aparece aquí.</span></div></div>';
       return;
     }
 
@@ -373,7 +373,7 @@
     if (modelHost) {
       modelHost.innerHTML = model
         ? `Modelo: <a href="https://drive.google.com/file/d/${esc(model.id)}/view" target="_blank" rel="noopener">${esc(model.title)}</a>`
-        : 'Modelo: el ultimo reporte de la carpeta Reportes de Drive';
+        : 'Modelo: el último reporte de la carpeta Reportes de Drive';
     }
 
     const week = report.week;
@@ -389,17 +389,17 @@
           <div class="week-cover-meta">
             <span>${isLast ? 'Semana que acaba de pasar' : 'Semana cerrada'}</span>
             <b>${esc(rangeLabel(report.monday))}</b>
-            <span>${week.days} ${week.days === 1 ? 'dia' : 'dias'} con entrega</span>
+            <span>${week.days} ${week.days === 1 ? 'día' : 'días'} con entrega</span>
           </div>
         </div>
 
-        ${report.missingDays.length ? `<div class="week-warning">La descarga de Meta llega hasta el ${esc(dayLabel(report.dataEnd))}: ${esc(report.missingDays.map(dayLabel).join(', '))} todavia no estan en la hoja del mes, asi que los totales pueden subir.</div>` : ''}
+        ${report.missingDays.length ? `<div class="week-warning">La descarga de Meta llega hasta el ${esc(dayLabel(report.dataEnd))}: ${esc(report.missingDays.map(dayLabel).join(', '))} todavía no están en la hoja del mes, así que los totales pueden subir.</div>` : ''}
 
         <h2 class="week-h2">01 · Resumen del periodo</h2>
         <div class="kpi-strip week-kpis">
-          ${kpiHtml('Inversion', fmt.money(week.spend), deltaNote(week.spend, previous.spend, 'money'))}
+          ${kpiHtml('Inversión', fmt.money(week.spend), deltaNote(week.spend, previous.spend, 'money'))}
           ${kpiHtml(week.conversionLabel, fmt.count(week.conversions), deltaNote(week.conversions, previous.conversions, 'count'))}
-          ${kpiHtml(`Costo x ${report.measuresConversions ? 'conversacion' : 'resultado'}`, fmt.unitCost(week.costPerConversion), deltaNote(week.costPerConversion, previous.costPerConversion, 'cost'))}
+          ${kpiHtml(`Costo x ${report.measuresConversions ? 'conversación' : 'resultado'}`, fmt.unitCost(week.costPerConversion), deltaNote(week.costPerConversion, previous.costPerConversion, 'cost'))}
           ${kpiHtml('Alcance', fmt.count(week.reach), `Frecuencia ${fmt.decimal(week.frequency)}`)}
           ${kpiHtml('Impresiones', fmt.count(week.impressions), `CPM ${fmt.money(week.cpm)}`)}
           ${kpiHtml('Clics', fmt.count(week.clicks), `CTR ${fmt.pct(week.ctr)} · CPC ${fmt.unitCost(week.cpc)}`)}
@@ -407,10 +407,10 @@
 
         ${report.week.types.length > 1 ? `
         <div class="panel week-types">
-          <div class="panel-head"><div><div class="panel-title">Resultados por tipo</div><div class="panel-sub">Cada objetivo mide su propio resultado, asi que no se suman entre si. ${report.measuresConversions ? 'Arriba manda el total de conversaciones.' : 'Arriba manda el tipo con mas inversion.'}</div></div></div>
+          <div class="panel-head"><div><div class="panel-title">Resultados por tipo</div><div class="panel-sub">Cada objetivo mide su propio resultado, así que no se suman entre sí. ${report.measuresConversions ? 'Arriba manda el total de conversaciones.' : 'Arriba manda el tipo con mas inversion.'}</div></div></div>
           <div class="table-scroll">
             <table class="data-table">
-              <thead><tr><th>Tipo de resultado</th><th class="num">Inversion</th><th class="num">Resultados</th><th class="num">Costo x resultado</th></tr></thead>
+              <thead><tr><th>Tipo de resultado</th><th class="num">Inversión</th><th class="num">Resultados</th><th class="num">Costo x resultado</th></tr></thead>
               <tbody>${report.week.types.map(type => `<tr><td class="campaign-name">${esc(type.name)}</td><td class="num">${fmt.money(type.spend)}</td><td class="num">${fmt.count(type.results)}</td><td class="num">${fmt.unitCost(type.cost)}</td></tr>`).join('')}</tbody>
             </table>
           </div>
@@ -419,12 +419,12 @@
         <div class="panel week-chart-panel">
           <div class="panel-head">
             <div>
-              <div class="panel-title">${esc(week.conversionLabel)} por dia</div>
-              <div class="panel-sub">Barras: ${esc(week.conversionLabel.toLowerCase())}. Linea: inversion del dia.</div>
+              <div class="panel-title">${esc(week.conversionLabel)} por día</div>
+              <div class="panel-sub">Barras: ${esc(week.conversionLabel.toLowerCase())}. Línea: inversión del día.</div>
             </div>
           </div>
-          <div class="chart-wrap h-260"><canvas id="week-chart" role="img" aria-label="Conversaciones e inversion por dia de la semana"></canvas></div>
-          <div class="chart-legend"><span><i class="legend-dot brand"></i><b>${esc(week.conversionLabel)}</b></span> <span><i class="legend-line"></i><b>Inversion</b></span></div>
+          <div class="chart-wrap h-260"><canvas id="week-chart" role="img" aria-label="Conversaciones e inversión por día de la semana"></canvas></div>
+          <div class="chart-legend"><span><i class="legend-dot brand"></i><b>${esc(week.conversionLabel)}</b></span> <span><i class="legend-line"></i><b>Inversión</b></span></div>
         </div>
 
         <h2 class="week-h2">02 · Mejores anuncios</h2>
@@ -432,17 +432,17 @@
 
         <h2 class="week-h2">03 · Conjuntos y campañas</h2>
         <div class="panel">
-          <div class="panel-head"><div><div class="panel-title">Por conjunto de anuncios (publico)</div><div class="panel-sub">Donde se concentraron las conversaciones de la semana.</div></div></div>
+          <div class="panel-head"><div><div class="panel-title">Por conjunto de anuncios (público)</div><div class="panel-sub">Donde se concentraron las conversaciones de la semana.</div></div></div>
           ${tableHtml(report.audiences, { nameHead: 'Conjunto', withPreview: false, typeColumn: !report.measuresConversions, label: report.measuresConversions ? 'Conversaciones' : 'Resultados' })}
         </div>
         <div class="panel week-campaigns">
-          <div class="panel-head"><div><div class="panel-title">Por campaña</div><div class="panel-sub">La descarga de Meta suma edad y sexo, asi que el reporte no desglosa por edad ni genero.</div></div></div>
+          <div class="panel-head"><div><div class="panel-title">Por campaña</div><div class="panel-sub">La descarga de Meta suma edad y sexo, así que el reporte no desglosa por edad ni género.</div></div></div>
           ${tableHtml(report.campaigns, { nameHead: 'Campaña', withPreview: false, typeColumn: !report.measuresConversions, label: report.measuresConversions ? 'Conversaciones' : 'Resultados' })}
         </div>
 
-        <h2 class="week-h2">04 · Conclusiones y proximos pasos</h2>
+        <h2 class="week-h2">04 · Conclusiones y próximos pasos</h2>
         <div class="panel week-notes-panel">
-          <div class="panel-head"><div><div class="panel-title">Lo que va en el reporte</div><div class="panel-sub">Los dos primeros textos vienen propuestos con lo que dice la semana. Se editan aqui y quedan guardados en este navegador.</div></div></div>
+          <div class="panel-head"><div><div class="panel-title">Lo que va en el reporte</div><div class="panel-sub">Los dos primeros textos vienen propuestos con lo que dice la semana. Se editan aquí y quedan guardados en este navegador.</div></div></div>
           <div class="week-notes">${notesHtml(report)}</div>
         </div>
 
