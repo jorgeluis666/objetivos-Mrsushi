@@ -1,0 +1,13 @@
+{
+  "marca": "Mr. Sushi",
+  "workspace": "Lima Retail · Dashboard Mr. Sushi",
+  "url_dashboard": "https://mrsushi.limaretail.com/",
+  "endpoint_env": "DATA_ENDPOINT",
+  "copia_local": "data/mrsushi-meta.json",
+  "from_name": "Lima Retail Alertas",
+  "from_email": "alertas@limaretail.com",
+  "destinatarios": [
+    { "email": "jorgeluis@limaretail.com", "nombre": "Jorge Luis" },
+    { "email": "diegomachuca@limaretail.com", "nombre": "Diego Machuca" }
+  ]
+}
