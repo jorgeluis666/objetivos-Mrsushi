@@ -45,14 +45,17 @@ function isoWeek(d) {
   return `${date.getUTCFullYear()}-W${String(Math.ceil(((date - start) / 86400000 + 1) / 7)).padStart(2, '0')}`;
 }
 
-const money = v => `S/. ${Number(v || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const moneyCorto = v => `S/. ${Math.round(Number(v || 0)).toLocaleString('es-PE')}`;
+const money = v => `${currencySymbol} ${Number(v || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const moneyCorto = v => `${currencySymbol} ${Math.round(Number(v || 0)).toLocaleString('es-PE')}`;
 const count = v => Number(v || 0).toLocaleString('es-PE');
 const signedPct = v => (v > 0 ? '+' : '') + Math.round(v) + '%';
 const ratio = (a, b) => (b ? a / b : null);
 const esc = v => String(v ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 const config = readJson('data/alertas-config.json');
+const currency = config.currency || 'PEN';
+if (!['PEN', 'USD'].includes(currency)) throw new Error('Moneda de alertas no soportada: ' + currency);
+const currencySymbol = currency === 'USD' ? 'US$' : 'S/.';
 if (process.env.DASHBOARD_URL) config.url_dashboard = config.url_dashboard || process.env.DASHBOARD_URL;
 const enviosPath = path.join(ROOT, 'data/alertas-envios.json');
 const enviosData = readJson('data/alertas-envios.json');
