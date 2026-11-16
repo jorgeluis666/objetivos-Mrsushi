@@ -3252,8 +3252,11 @@ button.topbar-pill[aria-expanded="true"] .status-chevron {
 }
 
 @media print {
+  /* El PDF sale en horizontal: la lamina de 1280x720 (16:9) que usan los reportes de la agencia,
+     no una hoja A4 vertical. Con 1280 px de ancho el resumen entra con sus seis tarjetas en una
+     sola fila y las tablas no se cortan. */
   @page {
-    size: A4 portrait;
+    size: 1280px 720px;
     margin: 12mm 10mm;
   }
 
